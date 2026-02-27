@@ -1,0 +1,5 @@
+print('======EX001======')
+print('Olá, Mundo!')
+print('======EX002======')
+nome = input('Digite o seu nome: ')
+print(f"{nome} é um prazer te conhecer!")
