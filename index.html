@@ -1,70 +1,57 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portifólio 3° ano</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Analisando Chamada da Turma</title>
 </head>
 <body>
-    <header>
-
-    </header>
     <main>
+        <header>
+            <h1>Analisando Chamada da Turma</h1>
+        </header>
         <section>
-            <h1>ARQUIVOS JAVASCRIPT</h1>
-            <ol>
-                <li onclick="window.open('JS/teste.html')"><p href="teste.html" target="_blank" rel="next">Teste</p></li>
-                <li onclick="window.open('JS/teste.js')"><p href="teste.js" target="_blank" rel="next">Teste 1</a></li>
-                <li onclick="window.open('JS/teste2.js')"><p href="teste2.js" target="_blank" rel="next">Teste 2</p></li>
-                <li onclick="window.open('JS/teste3.js')"><p href="teste3.js" target="_blank" rel="next">Teste 3</p></li>
-                <li onclick="window.open('JS/notas.js')"><p href="notas.js" target="_blank" rel="next">Notas</p></li>
-                <li onclick="window.open('JS/carros.js')"><p href="carros.js" target="_blank" rel="next">Carros</p></li>
-                <li onclick="window.open('JS/media_se.js')"><p href="media_se.js" target="_blank" rel="next">Média</p></li>
-            </ol>
-        </section>
-        <section>
-            <h1>Analise e Projeto de sistema</h1>
-            <ol>
-                <li onclick="window.location.href='https://gamma.app/docs/A-Importancia-da-Propriedade-Intelectual-e-Seus-Direitos-qjd90lyps67wxim'"><p href="https://gamma.app/docs/A-Importancia-da-Propriedade-Intelectual-e-Seus-Direitos-qjd90lyps67wxim" target="_blank" rel="next">A Importância da Propriedade Intelectual e Seus Direitos</p></li>
-                <li onclick="window.location.href='https://gamma.app/docs/Transforme-a-Gestao-Escolar-com-o-Meu-Horario-6n5bxnksgr5x4te'"><p href="https://gamma.app/docs/Transforme-a-Gestao-Escolar-com-o-Meu-Horario-6n5bxnksgr5x4te" target="_blank" rel="next">Transformação da Gestão Escolar com o Meu Horário</p></li>
-            </ol>
-        </section>
-        <section>
-            <h1>ARQUIVOS PYTHON</h1>
-            <ol>
-                <li onclick="window.open('PY/teste.py')"><p>lista de aluno com filtro</p></li>
-                <li onclick="window.open('PY/atividades.py')"><p>exercicios</p></li>
-                <li onclick="window.open('PY/1Tintaparaparede2Descontode5.py')"><p>1)Tinta para parede 2)Desconto de 5% 3)Conversor de temperatura</p></li>
-            </ol>
-        </section>
-        <section>
-            <h1>Exercicios de PYTHON do Curso em Video</h1>
-            <ol>
-                <li onclick="window.open('PYTHON/ex001,002.py')"><p href="PYTHON/ex001,002.py" target="_blank" rel="next">ex001,002</p></li>
-                <li onclick="window.open('PYTHON/ex003,004.py')"><p href="PYTHON/ex003,004.py" target="_blank" rel="next">ex003,004</p></li>
-                <li onclick="window.open('PYTHON/ex005...013.py')"><p href="PYTHON/ex005...013.py" target="_blank" rel="next">ex005...013</p></li>
-                <li onclick="window.open('PYTHON/ex016...021.py')"><p href="PYTHON/ex016...021.py" target="_blank" rel="next">ex016...021</p></li>
-                <li onclick="window.open('PYTHON/ex022...027.py')"><p href="PYTHON/ex022...027.py" target="_blank" rel="next">ex022...027</p></li>
-                <li onclick="window.open('PYTHON/ex028...035.py')"><p href="PYTHON/ex028...035.py" target="_blank" rel="next">ex028...035</p></li>
-                <li onclick="window.open('PYTHON/ex036...045.py')"><p href="PYTHON/ex036...045.py" target="_blank" rel="next">ex036...045</p></li>
-                <li onclick="window.open('PYTHON/ex046...056.py')"><p href="PYTHON/ex046...056.py" target="_blank" rel="next">ex046...056</p></li>
-                <li onclick="window.open('PYTHON/ex057...065.py')"><p href="PYTHON/ex057...065.py" target="_blank" rel="next">ex057...065</p></li>
-                <li onclick="window.open('PYTHON/ex066...071.py')"><p href="PYTHON/ex066...071.py" target="_blank" rel="next">ex066...071</p></li>
-                <li onclick="window.open('PYTHON/ex072...077.py')"><p href="PYTHON/ex072...077.py" target="_blank" rel="next">ex072...077</p></li>
-                <li onclick="window.open('PYTHON/ex078...083.py')"><p href="PYTHON/ex078...083.py" target="_blank" rel="next">ex078...083</p></li>
-            </ol>
+            <input type="number" id="Nmatricula">
+            <input type="text" id="name">
+            <input type="number" id="idade">
+            <label for="sexo" cheked>Masculino</label>
+            <input type="checkbox" id="sexoM">
+            <label for="sexo">Feminino</label>
+            <input type="checkbox" id="sexoF">
+            <button onclick="adicionar()">Adicionar</button>
+            <button onclick="finalizar()">Finalizar</button>
         </section>
     </main>
-    
 </body>
-
+<script>
+    lista = []
+    let matricula = document.getElementById('Nmatricula')
+    let name = document.getElementById('name')
+    let idade = document.getElementById('idade')
+    let sexoM = document.getElementById('sexoM')
+    let sexoF = document.getElementById('sexoF')
+    function adicionar(){
+        if(matricula.value == '' || name.value == '' || idade.value == '' || sexoM.checked == false && sexoF.checked == false){
+            alert('Preencha todos os campos!')
+        }else{
+            if(sexoM.checked == false && sexoF.checked == false){
+                alert('Os campos sexo devem ser preenchidos corretamente!')
+            }else{
+                if(sexoM.checked == false){
+                    sexo = 'F'
+                }else{
+                    sexo = 'M'
+                }
+                let aluno = [matricula.value, name.value, idade.value, sexo]
+                lista.push(aluno)
+                matricula.value = ''
+                name.value = ''
+                idade.value = ''
+                sexoM.checked = false
+                sexoF.checked = false
+                console.log(lista)
+            }
+        }
+    }
+</script>
 </html>
-
-
-
-
-
-
-
-
