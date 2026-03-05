@@ -7,5 +7,4 @@ console.log(D)
 console.log("O resultado é:", D)
 
 console.log("O resultado é:", -b+D/D /a*2)
-
 console.log("O resultado é:", -b-D/D /a*2)
