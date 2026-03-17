@@ -7,29 +7,46 @@ def carregar_codigo(nome_arquivo):
             return f.read()
     except FileNotFoundError:
         return f"// Erro: O arquivo '{nome_arquivo}' não foi encontrado."
+    except Exception as e:
+        return f"// Erro inesperado: {e}"
 
 st.set_page_config(
-    page_title="Portifólio do Hubert",
+    page_title="Portfólio do Hubert",
     page_icon="👋",
     layout="wide"
 )
 
+# Definição dos temas e metadados
 TEMAS = {
-    "JavaScrpit": {
-        "bg": "linear-gradient(to right, #ffee00d8 0%, #ffee00 100%)",
-        "header": "linear-gradient(to right, #122500e8 0%, #122500 100%)",
-        "text_header": "#7bff00",
-        "content_bg": "#F0F2F6",
-        "content_text": "#333",
-        "lang": "javascript"
+    "JavaScript": {
+        "bg": "linear-gradient(135deg, #ffee00 0%, #ffcc00 100%)",
+        "header": "linear-gradient(to right, #1a1a1a 0%, #333 100%)",
+        "text_header": "#ffee00",
+        "content_bg": "#ffffff",
+        "content_text": "#1a1a1a",
+        "lang": "javascript",
+        "card_text": "#000000",
+        "card_bg": "rgba(0, 0, 0, 0.05)"
     },
     "Python": {
-        "bg": "linear-gradient(to right, #0f87ccd8 0%, #0f87cc 100%)",
-        "header": "linear-gradient(to right, #ff9100e8 0%, #ff9100 100%)",
-        "text_header": "#fff",
-        "content_bg": "#262730",
-        "content_text": "#fff",
-        "lang": "python"
+        "bg": "linear-gradient(135deg, #0f87cc 0%, #203a43 100%)",
+        "header": "linear-gradient(to right, #ff9100 0%, #ff6a00 100%)",
+        "text_header": "#ffffff",
+        "content_bg": "#1e1e26",
+        "content_text": "#e0e0e0",
+        "lang": "python",
+        "card_text": "#ffffff",
+        "card_bg": "rgba(255, 255, 255, 0.1)"
+    },
+    "Analise": {
+        "bg": "linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%)",
+        "header": "linear-gradient(to right, #ffffff 0%, #e0e0e0 100%)",
+        "text_header": "#0f0c29",
+        "content_bg": "rgba(255, 255, 255, 0.05)",
+        "content_text": "#ffffff",
+        "lang": "markdown",
+        "card_text": "#ffffff",
+        "card_bg": "rgba(255, 255, 255, 0.1)"
     }
 }
 
@@ -40,28 +57,85 @@ opcao = st.sidebar.radio("Menu de Projetos", list(TEMAS.keys()))
 t = TEMAS[opcao]
 st.markdown(f"""
     <style>
-    [data-testid="stAppViewContainer"] {{ background: {t['bg']}; }}
+    /* Fundo Principal */
+    [data-testid="stAppViewContainer"] {{ 
+        background: {t['bg']}; 
+        color: {t['content_text']};
+    }}
+    
     [data-testid="stHeader"] {{ background: rgba(0,0,0,0); }}
+
+    /* Cartões Personalizados de Informação */
+    .custom-card {{
+        background-color: {t['card_bg']};
+        color: {t['card_text']};
+        padding: 20px;
+        border-radius: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 20px;
+        backdrop-filter: blur(10px);
+    }}
+    
+    .custom-card h4 {{
+        margin: 0;
+        color: {t['card_text']};
+    }}
+
+    /* Estilização dos Expanders (Projetos) */
+    div[data-testid="stExpander"] {{
+        border: none !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        border-radius: 12px !important;
+        margin-bottom: 1rem;
+        background-color: transparent !important;
+    }}
+
+    div[data-testid="stExpander"] details {{
+        border-radius: 12px !important;
+        overflow: hidden;
+        border: none !important;
+    }}
+
     div[data-testid="stExpander"] details summary {{
         background: {t['header']};
         color: {t['text_header']};
-        border-radius: 5px;
+        padding: 15px 20px;
+        font-weight: bold;
+        transition: all 0.3s ease;
     }}
+
+    div[data-testid="stExpander"] details summary:hover {{
+        filter: brightness(1.2);
+        transform: translateY(-2px);
+    }}
+
+    /* Conteúdo Interno do Expander */
     div[data-testid="stExpander"] details div[data-testid="stExpanderDetails"] {{
-        background-color: {t['content_bg']};
-        color: {t['content_text']};
-        padding: 15px;
-        border-radius: 0 0 5px 5px;
+        background-color: {t['content_bg']} !important;
+        color: {t['content_text']} !important;
+        padding: 20px;
+        border: 1px solid rgba(255,255,255,0.1);
     }}
-    div[data-testid="stExpander"] details summary svg {{ fill: {t['text_header']}; }}
+
+    div[data-testid="stExpander"] details summary svg {{ 
+        fill: {t['text_header']}; 
+    }}
+    
+    /* Estilo para links globais */
+    a {{
+        color: {t['card_text']} !important;
+        text-decoration: none;
+        font-weight: bold;
+    }}
+    a:hover {{
+        text-decoration: underline;
+    }}
     </style>
     """, unsafe_allow_html=True)
 
-if opcao == "JavaScrpit":
-
-
-    titulo = "JavaScrpit"
-
+# --- LÓGICA DE DADOS ---
+if opcao == "JavaScript":
+    titulo = "JavaScript"
     projetos = [
         {"nome": "Teste em html", "arquivo": "JS/teste.html"},
         {"nome": "Teste em JS", "arquivo": "JS/teste.js"},
@@ -76,13 +150,9 @@ if opcao == "JavaScrpit":
         {"nome": "Usando For", "arquivo": "JS/usandoFor.js"},
         {"nome": "Usando Break", "arquivo": "JS/usandoBreak.js"}
     ]
-    
-    projNumero = len(projetos)
-    projUtimo = projetos[-1]
 
 elif opcao == "Python":
     titulo = "Python"
-    
     projetos = [
         {"nome": "Dobro, Triplo, Raiz", "arquivo": "PY/DobroTriploRaizquadrada.py"},
         {"nome": "Média aritimética", "arquivo": "PY/MediaAritmetica.py"},
@@ -91,27 +161,49 @@ elif opcao == "Python":
         {"nome": "Conversão Temperaturas", "arquivo": "PY/ConversãoDeTemperaturas.py"}
     ]
 
-    projNumero = len(projetos)
-    projUtimo = projetos[-1]
 elif opcao == "Analise":
-    titulo = "Analise"
-    #projNumero = len(projetos)
+    titulo = "📑 Análise"
+    projetos = [
+        {"nome": "Propriedade Intelectual e seus Direitos", "link": "https://gamma.app/docs/A-Importancia-da-Propriedade-Intelectual-e-Seus-Direitos-qjd90lyps67wxim?mode=doc"},
+        {"nome": "Gestão Escolar: App Meu Horário", "link": "https://gamma.app/docs/Transforme-a-Gestao-Escolar-com-o-Meu-Horario-6n5bxnksgr5x4te"},
+        {"nome": "Plano de Negócios: Meu Horário", "link": "https://gamma.app/docs/AGENDA-ESCOLAR-O-Fim-do-Papel-e-o-Inicio-da-Eficiencia-Inteligent-fptrgjoq0w5ikxc"}
+    ]
 
+# --- RENDERIZAÇÃO ---
+projNumero = len(projetos)
+projUltimo = projetos[-1]
 
 st.title(titulo)
 
 with st.container():
-    st.text(f"{projNumero} projetos")
-    st.text(f"{projUtimo["nome"]}, Ultimo projeto")
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown(f"""
+            <div class="custom-card">
+                <h4>📁 {projNumero} Projetos</h4>
+                <p style="margin:0; opacity: 0.8;">Total nesta seção</p>
+            </div>
+        """, unsafe_allow_html=True)
+    with col2:
+        st.markdown(f"""
+            <div class="custom-card">
+                <h4>🚀 Último Projeto</h4>
+                <p style="margin:0; opacity: 0.8;">{projUltimo['nome']}</p>
+            </div>
+        """, unsafe_allow_html=True)
+
+    st.write("---")
 
     for projeto in projetos:
         with st.expander(projeto["nome"]):
-            st.caption(f"Arquivo: `{projeto['arquivo']}`")
-            if "link" in projeto:
-                st.write(f"Link: {projeto['link']}")
-            else:
+            if "arquivo" in projeto:
+                st.markdown(f"**📄 Local do Arquivo:** `{projeto['arquivo']}`")
                 conteudo = carregar_codigo(projeto["arquivo"])
                 extensao = projeto["arquivo"].split(".")[-1]
-                lang = "html" if extensao == "html" else t["lang"]
-                
+                lang = "html" if extensao == "html" else t.get("lang", "txt")
                 st.code(conteudo, language=lang)
+            
+            elif "link" in projeto:
+                st.markdown("### 🔗 Documentação Externa")
+                st.write("Este projeto contém análises detalhadas e planejamento estratégico.")
+                st.markdown(f'<a href="{projeto["link"]}" target="_blank">Abrir documento completo →</a>', unsafe_allow_html=True)
