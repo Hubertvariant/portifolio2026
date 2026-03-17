@@ -168,7 +168,7 @@ elif opcao == "Python":
         {"nome": "Aluno para apagar o quadro", "arquivo": "PY/alunoSorteadoParaApagarOQuadro.py"},
         {"nome": "Hipotenusa de um Triangulo", "arquivo": "PY/hipotenusa.py"},
         {"nome": "Dividindo Nome", "arquivo": "PY/DividindoNome.py"},
-        {"nome": "Colocando em maiúsculas", "arquivo": "PY/colocandoEmMaiusculas.py"},
+        {"nome": "Colocando em maiúsculas", "arquivo": "PY/colocandoEmMaiuscolas.py"},
         {"nome": "Automação Alura", "arquivo": "PY/automacaoAlura.py"}
     ]
 
