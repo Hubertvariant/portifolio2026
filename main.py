@@ -137,40 +137,40 @@ st.markdown(f"""
 if opcao == "JavaScript":
     titulo = "JavaScript"
     projetos = [
-        {"nome": "Teste em html", "arquivo": "JS/teste.html"},
-        {"nome": "Teste em JS", "arquivo": "JS/teste.js"},
-        {"nome": "Teste 2 em JS", "arquivo": "JS/teste2.js"},
-        {"nome": "Teste 3 em JS", "arquivo": "JS/teste3.js"},
-        {"nome": "Carros JS", "arquivo": "JS/carros.js"},
-        {"nome": "Notas com JS", "arquivo": "JS/notas.js"},
-        {"nome": "Media com Condições", "arquivo": "JS/media_se.js"},
-        {"nome": "Variaveis com JS", "arquivo": "JS/variaveis.js"},
-        {"nome": "Operação basicas com JS", "arquivo": "JS/opercaobasica.js"},
-        {"nome": "Arrays com JS", "arquivo": "JS/array.js"},
-        {"nome": "Usando For", "arquivo": "JS/usandoFor.js"},
-        {"nome": "Usando Break", "arquivo": "JS/usandoBreak.js"},
-        {"nome": "Break e Continue", "arquivo": "JS/break_continue.js"},
-        {"nome": "Objeto", "arquivo": "JS/objeto.js"},
-        {"nome": "Filtro de Objetos", "arquivo": "JS/filtrar.js"}
+          {"nome": "Arrays com JS", "arquivo": "JS/array.js"},
+          {"nome": "Break e Continue", "arquivo": "JS/break_continue.js"},
+          {"nome": "Carros JS", "arquivo": "JS/carros.js"},
+          {"nome": "Filtro de Objetos", "arquivo": "JS/filtrar.js"},
+          {"nome": "Media com Condições", "arquivo": "JS/media_se.js"},
+          {"nome": "Notas com JS", "arquivo": "JS/notas.js"},
+          {"nome": "Objeto", "arquivo": "JS/objeto.js"},
+          {"nome": "Operação basicas com JS", "arquivo": "JS/opercaobasica.js"},
+          {"nome": "Teste 2 em JS", "arquivo": "JS/teste2.js"},
+          {"nome": "Teste 3 em JS", "arquivo": "JS/teste3.js"},
+          {"nome": "Teste em html", "arquivo": "JS/teste.html"},
+          {"nome": "Teste em JS", "arquivo": "JS/teste.js"},
+          {"nome": "Usando Break", "arquivo": "JS/usandoBreak.js"},
+          {"nome": "Usando For", "arquivo": "JS/usandoFor.js"},
+          {"nome": "Variaveis com JS", "arquivo": "JS/variaveis.js"}
     ]
 
 elif opcao == "Python":
     titulo = "Python"
     projetos = [
-        {"nome": "Dobro, Triplo, Raiz", "arquivo": "PY/DobroTriploRaizquadrada.py"},
-        {"nome": "Média aritimética", "arquivo": "PY/MediaAritmetica.py"},
-        {"nome": "Conversão Dolar", "arquivo": "PY/ConversãoDeReaisParaDolar.py"},
-        {"nome": "Tinta para Parede", "arquivo": "PY/TintaParaParede.py"},
-        {"nome": "Conversão Temperaturas", "arquivo": "PY/ConversãoDeTemperaturas.py"},
-        {"nome": "Parte inteira de um número", "arquivo": "PY/ParteInteiraDeUmNumeroFloat.py"},
-        {"nome": "Ordem de apresentação", "arquivo": "PY/ordemDeApresentação.py"},
-        {"nome": "Lendo números", "arquivo": "PY/lendoNumeros.py"},
         {"nome": "Aluno para apagar o quadro", "arquivo": "PY/alunoSorteadoParaApagarOQuadro.py"},
-        {"nome": "Hipotenusa de um Triangulo", "arquivo": "PY/hipotenusa.py"},
-        {"nome": "Dividindo Nome", "arquivo": "PY/DividindoNome.py"},
+        {"nome": "Automação Alura", "arquivo": "PY/automacaoAlura.py"},
         {"nome": "Colocando em maiúsculas", "arquivo": "PY/colocandoEmMaiuscolas.py"},
-        {"nome": "Automação Alura", "arquivo": "PY/automacaoAlura.py"}
-    ]
+        {"nome": "Conversão Dolar", "arquivo": "PY/ConversãoDeReaisParaDolar.py"},
+        {"nome": "Conversão Temperaturas", "arquivo": "PY/ConversãoDeTemperaturas.py"},
+        {"nome": "Dividindo Nome", "arquivo": "PY/DividindoNome.py"},
+        {"nome": "Dobro, Triplo, Raiz", "arquivo": "PY/DobroTriploRaizquadrada.py"},
+        {"nome": "Hipotenusa de um Triangulo", "arquivo": "PY/hipotenusa.py"},
+        {"nome": "Lendo números", "arquivo": "PY/lendoNumeros.py"},
+        {"nome": "Média aritimética", "arquivo": "PY/MediaAritmetica.py"},
+        {"nome": "Ordem de apresentação", "arquivo": "PY/ordemDeApresentação.py"},
+        {"nome": "Parte inteira de um número", "arquivo": "PY/ParteInteiraDeUmNumeroFloat.py"},
+        {"nome": "Tinta para Parede", "arquivo": "PY/TintaParaParede.py"}
+]
 
     exercicios = []
 
