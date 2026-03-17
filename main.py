@@ -161,6 +161,17 @@ elif opcao == "Python":
         {"nome": "Conversão Temperaturas", "arquivo": "PY/ConversãoDeTemperaturas.py"}
     ]
 
+    exercicios = []
+
+    for i in range(1, 84):
+        num_formatado = f"{i:03}"
+        
+        exercicio = {
+            "nome": f"Exercício {i}",
+            "arquivo": f"CursoemV-PYTHON/ex{num_formatado}.py"
+        }
+        exercicios.append(exercicio)
+
 elif opcao == "Analise":
     titulo = "📑 Análise"
     projetos = [
@@ -207,3 +218,33 @@ with st.container():
                 st.markdown("### 🔗 Documentação Externa")
                 st.write("Este projeto contém análises detalhadas e planejamento estratégico.")
                 st.markdown(f'<a href="{projeto["link"]}" target="_blank">Abrir documento completo →</a>', unsafe_allow_html=True)
+
+if opcao == "Python":
+    exerNumero = len(exercicios)
+    exerUltimo = exercicios[-1]
+    with st.container():
+        st.markdown("### 📝 Exercícios")
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown(f"""
+                <div class="custom-card">
+                    <h4>📁 {exerNumero} Exercícios realizados</h4>
+                    <p style="margin:0; opacity: 0.8;">Total nesta seção</p>
+                </div>
+            """, unsafe_allow_html=True)
+        with col2:
+            st.markdown(f"""
+                <div class="custom-card">
+                    <h4>🚀 Último Exercício</h4>
+                    <p style="margin:0; opacity: 0.8;">{exerUltimo['nome']}</p>
+                </div>
+            """, unsafe_allow_html=True)
+
+            st.write("---")
+        for exercicio in exercicios:
+            with st.expander(exercicio["nome"]):
+                st.markdown(f"**📄 Local do Arquivo:** `{exercicio['arquivo']}`")
+                conteudo = carregar_codigo(exercicio["arquivo"])
+                extensao = exercicio["arquivo"].split(".")[-1]
+                lang = "html" if extensao == "html" else t.get("lang", "txt")
+                st.code(conteudo, language=lang)
