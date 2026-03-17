@@ -148,7 +148,10 @@ if opcao == "JavaScript":
         {"nome": "Operação basicas com JS", "arquivo": "JS/opercaobasica.js"},
         {"nome": "Arrays com JS", "arquivo": "JS/array.js"},
         {"nome": "Usando For", "arquivo": "JS/usandoFor.js"},
-        {"nome": "Usando Break", "arquivo": "JS/usandoBreak.js"}
+        {"nome": "Usando Break", "arquivo": "JS/usandoBreak.js"},
+        {"nome": "Break e Continue", "arquivo": "JS/break_continue.js"},
+        {"nome": "Objeto", "arquivo": "JS/objeto.js"},
+        {"nome": "Filtro de Objetos", "arquivo": "JS/filtrar.js"}
     ]
 
 elif opcao == "Python":
@@ -158,7 +161,15 @@ elif opcao == "Python":
         {"nome": "Média aritimética", "arquivo": "PY/MediaAritmetica.py"},
         {"nome": "Conversão Dolar", "arquivo": "PY/ConversãoDeReaisParaDolar.py"},
         {"nome": "Tinta para Parede", "arquivo": "PY/TintaParaParede.py"},
-        {"nome": "Conversão Temperaturas", "arquivo": "PY/ConversãoDeTemperaturas.py"}
+        {"nome": "Conversão Temperaturas", "arquivo": "PY/ConversãoDeTemperaturas.py"},
+        {"nome": "Parte inteira de um número", "arquivo": "PY/ParteInteiraDeUmNumeroFloat.py"},
+        {"nome": "Ordem de apresentação", "arquivo": "PY/ordemDeApresentação.py"},
+        {"nome": "Lendo números", "arquivo": "PY/lendoNumeros.py"},
+        {"nome": "Aluno para apagar o quadro", "arquivo": "PY/alunoSorteadoParaApagarOQuadro.py"},
+        {"nome": "Hipotenusa de um Triangulo", "arquivo": "PY/hipotenusa.py"},
+        {"nome": "Dividindo Nome", "arquivo": "PY/DividindoNome.py"},
+        {"nome": "Colocando em maiúsculas", "arquivo": "PY/colocandoEmMaiusculas.py"},
+        {"nome": "Automação Alura", "arquivo": "PY/automacaoAlura.py"}
     ]
 
     exercicios = []
@@ -177,7 +188,8 @@ elif opcao == "Analise":
     projetos = [
         {"nome": "Propriedade Intelectual e seus Direitos", "link": "https://gamma.app/docs/A-Importancia-da-Propriedade-Intelectual-e-Seus-Direitos-qjd90lyps67wxim?mode=doc"},
         {"nome": "Gestão Escolar: App Meu Horário", "link": "https://gamma.app/docs/Transforme-a-Gestao-Escolar-com-o-Meu-Horario-6n5bxnksgr5x4te"},
-        {"nome": "Plano de Negócios: Meu Horário", "link": "https://gamma.app/docs/AGENDA-ESCOLAR-O-Fim-do-Papel-e-o-Inicio-da-Eficiencia-Inteligent-fptrgjoq0w5ikxc"}
+        {"nome": "Plano de Negócios: Meu Horário", "link": "https://gamma.app/docs/AGENDA-ESCOLAR-O-Fim-do-Papel-e-o-Inicio-da-Eficiencia-Inteligent-fptrgjoq0w5ikxc"},
+        {"nome": "Panorama Global de Startups 2026", "link": "https://gamma.app/docs/Panorama-Global-de-Startups-2026-4xg3oj9glclqp0v?mode=doc"}
     ]
 
 # --- RENDERIZAÇÃO ---
