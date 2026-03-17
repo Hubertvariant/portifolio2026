@@ -157,20 +157,20 @@ if opcao == "JavaScript":
 elif opcao == "Python":
     titulo = "Python"
     projetos = [
-            {"nome": "Dobro, Triplo, Raiz", "arquivo": "PY/DobroTriploRaizquadrada.py"},
-            {"nome": "Média aritimética", "arquivo": "PY/MediaAritmetica.py"},
-            {"nome": "Conversão Dolar", "arquivo": "PY/ConversãoDeReaisParaDolar.py"},
-            {"nome": "Tinta para Parede", "arquivo": "PY/TintaParaParede.py"},
-            {"nome": "Conversão Temperaturas", "arquivo": "PY/ConversãoDeTemperaturas.py"},
-            {"nome": "Parte inteira de um número", "arquivo": "PY/ParteInteiraDeUmNumeroFloat.py"},
-            {"nome": "Ordem de apresentação", "arquivo": "PY/ordemDeApresentação.py"},
-            {"nome": "Lendo números", "arquivo": "PY/lendoNumeros.py"},
-            {"nome": "Aluno para apagar o quadro", "arquivo": "PY/alunoSorteadoParaApagarOQuadro.py"},
-            {"nome": "Hipotenusa de um Triangulo", "arquivo": "PY/hipotenusa.py"},
-            {"nome": "Dividindo Nome", "arquivo": "PY/DividindoNome.py"},
-            {"nome": "Colocando em maiúsculas", "arquivo": "PY/colocandoEmMaiuscolas.py"},
-            {"nome": "Automação Alura", "arquivo": "PY/automacaoAlura.py"}
-    ]
+            {"nome": "Dobro, Triplo, Raiz", "arquivo": "PY/DobroTriploRaizquadrada.py"},
+            {"nome": "Média aritimética", "arquivo": "PY/MediaAritmetica.py"},
+            {"nome": "Conversão Dolar", "arquivo": "PY/ConversãoDeReaisParaDolar.py"},
+            {"nome": "Tinta para Parede", "arquivo": "PY/TintaParaParede.py"},
+            {"nome": "Conversão Temperaturas", "arquivo": "PY/ConversãoDeTemperaturas.py"},
+            {"nome": "Parte inteira de um número", "arquivo": "PY/ParteInteiraDeUmNumeroFloat.py"},
+            {"nome": "Ordem de apresentação", "arquivo": "PY/ordemDeApresentação.py"},
+            {"nome": "Lendo números", "arquivo": "PY/lendoNumeros.py"},
+            {"nome": "Aluno para apagar o quadro", "arquivo": "PY/alunoSorteadoParaApagarOQuadro.py"},
+            {"nome": "Hipotenusa de um Triangulo", "arquivo": "PY/hipotenusa.py"},
+            {"nome": "Dividindo Nome", "arquivo": "PY/DividindoNome.py"},
+            {"nome": "Colocando em maiúsculas", "arquivo": "PY/colocandoEmMaiuscolas.py"},
+            {"nome": "Automação Alura", "arquivo": "PY/automacaoAlura.py"}
+        ]
 
     exercicios = []
 
