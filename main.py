@@ -151,8 +151,13 @@ if opcao == "JavaScript":
             {"nome": "Usando Break", "arquivo": "JS/usandoBreak.js"},
             {"nome": "Break e Continue", "arquivo": "JS/break_continue.js"},
             {"nome": "Objeto", "arquivo": "JS/objeto.js"},
-            {"nome": "Filtro de Objetos", "arquivo": "JS/filtrar.js"}
-    ]
+            {"nome": "Filtro de Objetos", "arquivo": "JS/filtrar.js"},
+            {"nome": "Colchetes com JS", "arquivo": "JS/colchete.js"},
+            {"nome": "Substring com JS", "arquivo": "JS/substring.js"},
+            {"nome": "Objetos 2 com JS", "arquivo": "JS/objet2.js"},
+            {"nome": "Alterar Objetos", "arquivo": "JS/alterar.js"},
+            {"nome": "Leitura de arquivos", "arquivo": "JS/2.leitura.js"}
+        ]
 
 elif opcao == "Python":
     titulo = "Python"
