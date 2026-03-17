@@ -1,0 +1,7 @@
+nome = str(input('Digite seu nome: ')).strip()
+print(f'Seu nome em maiusculo: {nome.upper()}')
+print(f'Seu nome em minusculo: {nome.lower()}')
+print(f'Número de letras do seu nome: {len(nome.replace(" ",""))}')
+div = nome.split()
+print(f'Número de letras do primeiro nome: {len(div[0])}')
+print('Seu nome tem o nome Silva: ', 'silva' in nome.lower())
