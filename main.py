@@ -180,7 +180,7 @@ elif opcao == "Python":
 
     exercicios = []
 
-    for i in range(1, 84):
+    for i in range(1, 88):
         num_formatado = f"{i:03}"
         
         exercicio = {
