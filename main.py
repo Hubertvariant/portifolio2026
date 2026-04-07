@@ -157,7 +157,7 @@ if opcao == "JavaScript":
             {"nome": "Objetos 2 com JS", "arquivo": "JS/objet2.js"},
             {"nome": "Alterar Objetos", "arquivo": "JS/alterar.js"},
             {"nome": "Leitura de arquivos", "arquivo": "JS/2.leitura.js"},
-            {"nome": "Conjunto de Números", "arquivo": "JS/conjuntoNumeros.js"}
+            {"nome": "Conjunto de Números", "arquivo": "JS/conjuntoNumeros.js"},
             {"nome": "Organizando Arrays", "arquivo": "JS/OrganizandoLista.js"}
         ]
 
