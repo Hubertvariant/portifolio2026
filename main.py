@@ -158,6 +158,7 @@ if opcao == "JavaScript":
             {"nome": "Alterar Objetos", "arquivo": "JS/alterar.js"},
             {"nome": "Leitura de arquivos", "arquivo": "JS/2.leitura.js"},
             {"nome": "Conjunto de Números", "arquivo": "JS/conjuntoNumeros.js"}
+            {"nome": "Organizando Arrays", "arquivo": "JS/OrganizandoLista.js"}
         ]
 
 elif opcao == "Python":
