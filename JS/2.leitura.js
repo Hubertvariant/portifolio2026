@@ -1,4 +1,4 @@
-const dados = require("./2clientes.json")
+const dados = require("./2.clientes.json")
 console.log(dados)
 console.log(typeof dados)
 const clienteEmString = JSON.stringify(dados)
