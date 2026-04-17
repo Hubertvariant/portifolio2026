@@ -149,7 +149,7 @@ if opcao == "JavaScript":
             {"nome": "Arrays com JS", "arquivo": "JS/array.js"},
             {"nome": "Usando For", "arquivo": "JS/usandoFor.js"},
             {"nome": "Usando Break", "arquivo": "JS/usandoBreak.js"},
-            {"nome": "Break e Continue", "arquivo": "JS/break_continue.js"},
+            {"nome": "Break e Continue", "arquivo": "JS/breake_continue.js"},
             {"nome": "Objeto", "arquivo": "JS/objeto.js"},
             {"nome": "Filtro de Objetos", "arquivo": "JS/filtrar.js"},
             {"nome": "Colchetes com JS", "arquivo": "JS/colchete.js"},
