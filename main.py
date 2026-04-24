@@ -47,6 +47,16 @@ TEMAS = {
         "lang": "markdown",
         "card_text": "#ffffff",
         "card_bg": "rgba(255, 255, 255, 0.1)"
+    },
+    "Mobile": {
+        "bg": "linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%)",
+        "header": "linear-gradient(to right, #ffffff 0%, #e0e0e0 100%)",
+        "text_header": "#0f0c29",
+        "content_bg": "rgba(255, 255, 255, 0.05)",
+        "content_text": "#ffffff",
+        "lang": "markdown",
+        "card_text": "#ffffff",
+        "card_bg": "rgba(255, 255, 255, 0.1)"
     }
 }
 
@@ -201,6 +211,16 @@ elif opcao == "Analise":
         {"nome": "Panorama Global de Startups 2026", "link": "https://gamma.app/docs/Panorama-Global-de-Startups-2026-4xg3oj9glclqp0v?mode=doc"},
         {"nome": "Métricas e Melhorias Contínuas nos Negócios", "link": "https://gamma.app/docs/Metricas-e-Melhorias-Continuas-nos-Negocios-r4n7h2cqwz74hxg"}
     ]
+elif opcao == "Mobile":
+    titulo = "📑 Análise"
+    projetos = [
+        {"nome": "Propriedade Intelectual e seus Direitos", "link": "https://gamma.app/docs/A-Importancia-da-Propriedade-Intelectual-e-Seus-Direitos-qjd90lyps67wxim?mode=doc"},
+        {"nome": "Gestão Escolar: App Meu Horário", "link": "https://gamma.app/docs/Transforme-a-Gestao-Escolar-com-o-Meu-Horario-6n5bxnksgr5x4te"},
+        {"nome": "Plano de Negócios: Meu Horário", "link": "https://gamma.app/docs/AGENDA-ESCOLAR-O-Fim-do-Papel-e-o-Inicio-da-Eficiencia-Inteligent-fptrgjoq0w5ikxc"},
+        {"nome": "Panorama Global de Startups 2026", "link": "https://gamma.app/docs/Panorama-Global-de-Startups-2026-4xg3oj9glclqp0v?mode=doc"},
+        {"nome": "Métricas e Melhorias Contínuas nos Negócios", "link": "https://gamma.app/docs/Metricas-e-Melhorias-Continuas-nos-Negocios-r4n7h2cqwz74hxg"}
+    ]
+
 
 # --- RENDERIZAÇÃO ---
 projNumero = len(projetos)
