@@ -49,11 +49,11 @@ TEMAS = {
         "card_bg": "rgba(255, 255, 255, 0.1)"
     },
     "Mobile": {
-        "bg": "linear-gradient(135deg, #6a11cb 0%, #2575fc 100%)", # Novo tema: Roxo para Azul
+        "bg": "linear-gradient(135deg, #6a11cb 0%, #2575fc 100%)",
         "header": "linear-gradient(to right, #00d2ff 0%, #3a7bd5 100%)",
         "text_header": "#ffffff",
-        "content_bg": "#0f172a",
-        "content_text": "#f8fafc",
+        "content_bg": "#f8f9fa",  # Cor de fundo clara para destacar o QR Code
+        "content_text": "#1e293b", # Texto escuro para contraste
         "lang": "markdown",
         "card_text": "#ffffff",
         "card_bg": "rgba(255, 255, 255, 0.15)"
@@ -164,9 +164,13 @@ if projetos:
                 st.markdown(f'<a href="{projeto["link"]}" target="_blank">Abrir documento completo →</a>', unsafe_allow_html=True)
             
             elif "imagem" in projeto:
-                st.markdown("<h3 style='text-align: center;'>🔗 Escaneie para Testar</h3>", unsafe_allow_html=True)
+                # Título centralizado com cor adaptada
+                st.markdown(f"<h3 style='text-align: center; color: {t['content_text']};'>🔗 Escaneie para Testar</h3>", unsafe_allow_html=True)
+                
                 col_img1, col_img2, col_img3 = st.columns([1, 1, 1])
                 with col_img2:
+                    # Adicionamos um fundo branco direto na imagem se necessário, 
+                    # mas com o content_bg claro acima, já deve funcionar perfeitamente.
                     st.image(projeto["imagem"], caption=f"QR Code: {projeto['nome']}", use_container_width=True)
 
 # --- SEÇÃO DE EXERCÍCIOS (EXCLUSIVO PYTHON) ---
