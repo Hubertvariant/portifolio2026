@@ -164,8 +164,10 @@ if projetos:
                 st.markdown(f'<a href="{projeto["link"]}" target="_blank">Abrir documento completo →</a>', unsafe_allow_html=True)
             
             elif "imagem" in projeto:
-                st.markdown("### 🔗 Escaneie para Testar")
-                st.image(projeto["imagem"], caption=f"QR Code: {projeto['nome']}", width=300)
+                st.markdown("<h3 style='text-align: center;'>🔗 Escaneie para Testar</h3>", unsafe_allow_html=True)
+                col_img1, col_img2, col_img3 = st.columns([1, 1, 1])
+                with col_img2:
+                    st.image(projeto["imagem"], caption=f"QR Code: {projeto['nome']}", use_container_width=True)
 
 # --- SEÇÃO DE EXERCÍCIOS (EXCLUSIVO PYTHON) ---
 if opcao == "Python" and exercicios:
