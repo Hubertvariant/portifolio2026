@@ -39,11 +39,87 @@ def listar_conteudo_inteligente(diretorio):
 st.set_page_config(page_title="Portfólio Automático", layout="wide")
 
 TEMAS = {
-    "JavaScript": {"bg": "#ffee00", "pasta": "JS", "lang": "javascript"},
-    "Python": {"bg": "#0f87cc", "pasta": "PY", "lang": "python"},
-    "Mobile": {"bg": "#6a11cb", "pasta": "Mobile", "lang": "markdown"},
-    "Games": {"bg": "#2D033B", "pasta": "GAMES", "lang": "python"},
-    "Analise": {"bg": "#0f0c29", "pasta": "Analise", "lang": "markdown"}
+
+"JavaScript": {
+
+"bg": "linear-gradient(135deg, #ffee00 0%, #ffcc00 100%)",
+
+"header": "linear-gradient(to right, #1a1a1a 0%, #333 100%)",
+
+"text_header": "#ffee00",
+
+"content_bg": "#ffffff",
+
+"content_text": "#1a1a1a",
+
+"lang": "javascript",
+
+"card_text": "#000000",
+
+"card_bg": "rgba(0, 0, 0, 0.05)"
+
+},
+
+"Python": {
+
+"bg": "linear-gradient(135deg, #0f87cc 0%, #203a43 100%)",
+
+"header": "linear-gradient(to right, #ff9100 0%, #ff6a00 100%)",
+
+"text_header": "#ffffff",
+
+"content_bg": "#1e1e26",
+
+"content_text": "#e0e0e0",
+
+"lang": "python",
+
+"card_text": "#ffffff",
+
+"card_bg": "rgba(255, 255, 255, 0.1)"
+
+},
+
+"Analise": {
+
+"bg": "linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%)",
+
+"header": "linear-gradient(to right, #ffffff 0%, #e0e0e0 100%)",
+
+"text_header": "#0f0c29",
+
+"content_bg": "rgba(255, 255, 255, 0.05)",
+
+"content_text": "#ffffff",
+
+"lang": "markdown",
+
+"card_text": "#ffffff",
+
+"card_bg": "rgba(255, 255, 255, 0.1)"
+
+},
+
+"Mobile": {
+
+"bg": "linear-gradient(135deg, #6a11cb 0%, #2575fc 100%)",
+
+"header": "linear-gradient(to right, #00d2ff 0%, #3a7bd5 100%)",
+
+"text_header": "#ffffff",
+
+"content_bg": "#f8f9fa", # Cor de fundo clara para destacar o QR Code
+
+"content_text": "#1e293b", # Texto escuro para contraste
+
+"lang": "markdown",
+
+"card_text": "#ffffff",
+
+"card_bg": "rgba(255, 255, 255, 0.15)"
+
+}
+
 }
 
 opcao = st.sidebar.radio("Menu", list(TEMAS.keys()))
