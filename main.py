@@ -65,13 +65,13 @@ TEMAS = {
         "bg": "linear-gradient(135deg, #6a11cb 0%, #2575fc 100%)",
         "header": "#ffffff", "text_h": "#2575fc", "card": "rgba(255,255,255,0.2)",
         "content_bg": "#f8f9fa", "content_text": "#1e293b", "lang": "markdown",
-        "pasta": "Mobile", "desc": "Apps e QR Codes"
+        "pasta": "QRcode", "desc": "Apps e QR Codes"
     },
     "Analise": {
         "bg": "linear-gradient(135deg, #0f0c29 0%, #302b63 100%)",
         "header": "#ffffff", "text_h": "#0f0c29", "card": "rgba(255,255,255,0.1)",
         "content_bg": "rgba(255,255,255,0.05)", "content_text": "#ffffff", "lang": "markdown",
-        "pasta": "Analise", "desc": "Insights e Dados"
+        "pasta": "AP", "desc": "Insights e Dados"
     }
 }
 
