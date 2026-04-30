@@ -4,81 +4,157 @@ import os
 # --- FUNÇÕES DE APOIO ---
 
 def carregar_codigo(caminho_arquivo):
+    """Lê o conteúdo de arquivos de texto/código."""
     try:
         with open(caminho_arquivo, "r", encoding="utf-8") as f:
             return f.read()
     except Exception as e:
-        return f"// Erro ao ler arquivo: {e}"
+        return f"// Erro ao carregar: {e}"
 
-def listar_conteudo_inteligente(diretorio):
-    """ Varre a pasta e identifica o tipo de arquivo """
-    itens_processados = []
-    if os.path.exists(diretorio):
-        for nome_arquivo in sorted(os.listdir(diretorio)):
-            caminho_completo = os.path.join(diretorio, nome_arquivo)
-            
-            # Ignorar pastas, focar em arquivos
-            if os.path.isfile(caminho_completo):
-                extensao = nome_arquivo.lower().split('.')[-1]
+def listar_arquivos_inteligente(pasta):
+    """Varre a pasta e classifica os arquivos por tipo."""
+    dados = []
+    if os.path.exists(pasta):
+        for item in sorted(os.listdir(pasta)):
+            caminho = os.path.join(pasta, item)
+            if os.path.isfile(caminho):
+                ext = item.lower().split('.')[-1]
                 
                 tipo = "texto"
-                if extensao in ['png', 'jpg', 'jpeg', 'webp']:
+                if ext in ['png', 'jpg', 'jpeg', 'webp', 'gif']:
                     tipo = "imagem"
-                elif extensao in ['py', 'js', 'html', 'css']:
+                elif ext in ['py', 'js', 'html', 'css', 'sql']:
                     tipo = "codigo"
                 
-                itens_processados.append({
-                    "nome": nome_arquivo,
-                    "caminho": caminho_completo,
+                dados.append({
+                    "nome": item,
+                    "caminho": caminho,
                     "tipo": tipo,
-                    "extensao": extensao
+                    "ext": ext
                 })
-    return itens_processados
+    return dados
 
-# --- CONFIGURAÇÃO ---
-st.set_page_config(page_title="Portfólio Automático", layout="wide")
+# --- CONFIGURAÇÃO DA PÁGINA ---
+st.set_page_config(
+    page_title="Portfólio do Hubert",
+    page_icon="👨‍💻",
+    layout="wide"
+)
 
+# --- TEMAS PERSONALIZADOS (UI/UX) ---
 TEMAS = {
-    "JavaScript": {"bg": "#ffee00", "pasta": "JS", "lang": "javascript"},
-    "Python": {"bg": "#0f87cc", "pasta": "PY", "lang": "python"},
-    "Mobile": {"bg": "#6a11cb", "pasta": "Mobile", "lang": "markdown"},
-    "Games": {"bg": "#2D033B", "pasta": "GAMES", "lang": "python"},
-    "Analise": {"bg": "#0f0c29", "pasta": "Analise", "lang": "markdown"}
+    "JavaScript": {
+        "bg": "linear-gradient(135deg, #f7df1e 0%, #d4bb00 100%)",
+        "header": "#1a1a1a", "text_h": "#f7df1e", "card": "rgba(0,0,0,0.1)",
+        "content_bg": "#ffffff", "content_text": "#1a1a1a", "lang": "javascript",
+        "pasta": "JS", "desc": "Scripts e Front-end"
+    },
+    "Python": {
+        "bg": "linear-gradient(135deg, #3776ab 0%, #2b5b84 100%)",
+        "header": "#ff9100", "text_h": "#ffffff", "card": "rgba(255,255,255,0.1)",
+        "content_bg": "#1e1e26", "content_text": "#e0e0e0", "lang": "python",
+        "pasta": "PY", "desc": "Automações e Lógica"
+    },
+    "Games": {
+        "bg": "linear-gradient(135deg, #000000 0%, #2d033b 100%)",
+        "header": "linear-gradient(to right, #00ffa3, #03dac6)", "text_h": "#000000", 
+        "card": "rgba(0, 255, 163, 0.1)", "content_bg": "#0a0a0a", "content_text": "#00ffa3", 
+        "lang": "python", "pasta": "GAMES", "desc": "Desenvolvimento de Jogos"
+    },
+    "Mobile": {
+        "bg": "linear-gradient(135deg, #6a11cb 0%, #2575fc 100%)",
+        "header": "#ffffff", "text_h": "#2575fc", "card": "rgba(255,255,255,0.2)",
+        "content_bg": "#f8f9fa", "content_text": "#1e293b", "lang": "markdown",
+        "pasta": "Mobile", "desc": "Apps e QR Codes"
+    },
+    "Analise": {
+        "bg": "linear-gradient(135deg, #0f0c29 0%, #302b63 100%)",
+        "header": "#ffffff", "text_h": "#0f0c29", "card": "rgba(255,255,255,0.1)",
+        "content_bg": "rgba(255,255,255,0.05)", "content_text": "#ffffff", "lang": "markdown",
+        "pasta": "Analise", "desc": "Insights e Dados"
+    }
 }
 
-opcao = st.sidebar.radio("Menu", list(TEMAS.keys()))
+# --- SELEÇÃO DE TEMA ---
+opcao = st.sidebar.radio("Navegar Projetos", list(TEMAS.keys()))
 t = TEMAS[opcao]
 
-# --- LÓGICA DE RENDERIZAÇÃO ---
-st.title(f"📂 Seção {opcao}")
+# --- CSS INJETADO ---
+st.markdown(f"""
+    <style>
+    .stApp {{ background: {t['bg']}; color: {t['content_text']}; }}
+    
+    .custom-card {{
+        background: {t['card']};
+        padding: 25px;
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+        text-align: center;
+        margin-bottom: 20px;
+    }}
 
-# Busca os arquivos na pasta definida para o tema
-arquivos = listar_conteudo_inteligente(t["pasta"])
+    div[data-testid="stExpander"] {{
+        background-color: {t['card']} !important;
+        border: 1px solid rgba(255,255,255,0.1) !important;
+        border-radius: 15px !important;
+    }}
+
+    div[data-testid="stExpander"] details summary {{
+        background: {t['header']} !important;
+        color: {t['text_h']} !important;
+        padding: 15px;
+        border-radius: 12px;
+        font-weight: bold;
+    }}
+    </style>
+    """, unsafe_allow_html=True)
+
+# --- INTERFACE PRINCIPAL ---
+st.title(f"Portfólio: {opcao}")
+st.write(f"_{t['desc']}_")
+
+# Busca automática dos arquivos na pasta
+arquivos = listar_arquivos_inteligente(t["pasta"])
+
+# Dashboard de Resumo
+col1, col2 = st.columns(2)
+with col1:
+    st.markdown(f'<div class="custom-card"><h2>{len(arquivos)}</h2><p>Ficheiros Detectados</p></div>', unsafe_allow_html=True)
+with col2:
+    status = "Online" if arquivos else "Vazio"
+    st.markdown(f'<div class="custom-card"><h2>{status}</h2><p>Status da Pasta: /{t["pasta"]}</p></div>', unsafe_allow_html=True)
+
+st.divider()
 
 if not arquivos:
-    st.info(f"Adicione arquivos na pasta `{t['pasta']}` para visualizá-los aqui.")
+    st.warning(f"⚠️ Ninguém em casa! Adicione arquivos na pasta `{t['pasta']}`.")
 else:
     for item in arquivos:
-        with st.expander(f"📄 {item['nome']}"):
+        with st.expander(f"📁 {item['nome'].upper()}"):
             
-            # Inteligência de Exibição
+            # --- LÓGICA INTELIGENTE DE EXIBIÇÃO ---
+            
+            # 1. IMAGENS
             if item['tipo'] == "imagem":
-                st.image(item['caminho'], caption=item['nome'], use_container_width=True)
-                st.download_button("Baixar Imagem", item['caminho'], file_name=item['nome'])
-                
+                st.image(item['caminho'], use_container_width=True)
+            
+            # 2. CÓDIGOS
             elif item['tipo'] == "codigo":
                 conteudo = carregar_codigo(item['caminho'])
-                # Se for HTML, o Streamlit destaca corretamente se passarmos a linguagem
-                lang = "html" if item['extensao'] == "html" else t['lang']
+                lang = "html" if item['ext'] == "html" else t['lang']
                 st.code(conteudo, language=lang)
-                
+            
+            # 3. TEXTO OU LINKS (.txt)
             else:
-                # Caso seja um arquivo de texto simples ou link
-                conteudo = carregar_codigo(item['caminho'])
-                if "http" in conteudo:
-                    st.link_button(f"Abrir Link: {item['nome']}", conteudo.strip())
+                conteudo = carregar_codigo(item['caminho']).strip()
+                if conteudo.startswith("http"):
+                    st.success("🔗 Link Externo Encontrado")
+                    st.link_button(f"Aceder a {item['nome']}", conteudo)
                 else:
-                    st.text(conteudo)
+                    st.info("Nota Informativa:")
+                    st.write(conteudo)
 
-# --- CSS PARA CORES (Resumo) ---
-st.markdown(f"<style>.stApp {{ background: {t['bg']}; }} </style>", unsafe_allow_html=True)
+# --- RODAPÉ ---
+st.sidebar.divider()
+st.sidebar.caption(f"Hubert © 2026 | Modo: {opcao}")
