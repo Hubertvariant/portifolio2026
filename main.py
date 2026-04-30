@@ -135,6 +135,9 @@ elif opcao == "Mobile":
     titulo = "📱 Desenvolvimento Mobile"
     projetos = [
         {"nome": "Carrossel de Imagens", "imagem": "QRcode/QRcode_CarroselDeImagem.png"},
+        {"nome": "Quem Faz?", "link": "https://github.com/Hubertvariant/quem-faz-app"},
+        {"nome": "ItataU", "link": "https://github.com/Hubertvariant/ItataU"},
+        {"nome": "Salva Mecânico", "link": "https://github.com/Hubertvariant/salva-mecanico"},
     ]
 
 # --- RENDERIZAÇÃO ---
