@@ -92,7 +92,7 @@ TEMAS = {
         "card_text": "#ffffff",
         "card_bg": "rgba(255, 255, 255, 0.15)"
     },
-    "Games": {  # Nova seção de Games
+    "Games": {
         "bg": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
         "header": "linear-gradient(to right, #f093fb 0%, #f5576c 100%)",
         "text_header": "#ffffff",
