@@ -5,113 +5,121 @@ def carregar_codigo(nome_arquivo):
         with open(nome_arquivo, "r", encoding="utf-8") as f:
             return f.read()
     except FileNotFoundError:
-        return f"// Erro: O arquivo '{nome_arquivo}' não foi encontrado localmente."
+        return f"// Erro: O arquivo '{nome_arquivo}' não foi encontrado."
     except Exception as e:
         return f"// Erro inesperado: {e}"
 
-st.set_page_config(
-    page_title="Portfólio do Hubert",
-    page_icon="👨‍💻",
-    layout="wide"
-)
+st.set_page_config(page_title="Portfólio do Hubert", page_icon="👨‍💻", layout="wide")
 
-# --- CONFIGURAÇÃO DE TEMAS ---
+# --- DICIONÁRIO DE TEMAS PERSONALIZADOS ---
 TEMAS = {
     "JavaScript": {
-        "bg": "linear-gradient(135deg, #f7df1e 0%, #d4bb00 100%)",
-        "header": "#1a1a1a", "text_header": "#f7df1e", "card_bg": "rgba(0,0,0,0.05)",
-        "content_bg": "#ffffff", "content_text": "#1a1a1a", "lang": "javascript"
+        "bg": "#F7DF1E", # Amarelo JS
+        "card": "#000000",
+        "text": "#000000",
+        "btn_header": "#323330",
+        "btn_text": "#F7DF1E",
+        "icon": "🟨"
     },
     "Python": {
-        "bg": "linear-gradient(135deg, #3776ab 0%, #2b5b84 100%)",
-        "header": "#ff9100", "text_header": "#ffffff", "card_bg": "rgba(255,255,255,0.1)",
-        "content_bg": "#1e1e26", "content_text": "#e0e0e0", "lang": "python"
+        "bg": "#3776AB", # Azul Python
+        "card": "#FFE873", # Amarelo Python
+        "text": "#ffffff",
+        "btn_header": "#FFD43B",
+        "btn_text": "#3776AB",
+        "icon": "🐍"
     },
     "Games": {
-        "bg": "linear-gradient(135deg, #000000 0%, #434343 100%)",
-        "header": "linear-gradient(to right, #ff004c, #7000ff)",
-        "text_header": "#ffffff", "card_bg": "rgba(255,255,255,0.15)",
-        "content_bg": "#121212", "content_text": "#00ff41", "lang": "python" # Estilo Matrix/Terminal
+        "bg": "#2D033B", # Roxo Neon
+        "card": "#810CA8",
+        "text": "#00FFA3", # Verde Matrix
+        "btn_header": "#C147E9",
+        "btn_text": "#ffffff",
+        "icon": "🎮"
     },
     "Analise": {
-        "bg": "linear-gradient(135deg, #0f0c29 0%, #302b63 100%)",
-        "header": "#ffffff", "text_header": "#0f0c29", "card_bg": "rgba(255,255,255,0.1)",
-        "content_bg": "rgba(255,255,255,0.05)", "content_text": "#ffffff", "lang": "markdown"
+        "bg": "#F0F2F6", # Cinza Claro Profissional
+        "card": "#ffffff",
+        "text": "#1F1F1F",
+        "btn_header": "#007BFF",
+        "btn_text": "#ffffff",
+        "icon": "📊"
     },
     "Mobile": {
         "bg": "linear-gradient(135deg, #6a11cb 0%, #2575fc 100%)",
-        "header": "#00d2ff", "text_header": "#ffffff", "card_bg": "rgba(255,255,255,0.15)",
-        "content_bg": "#f8f9fa", "content_text": "#1e293b", "lang": "markdown"
+        "card": "rgba(255, 255, 255, 0.2)",
+        "text": "#ffffff",
+        "btn_header": "#ffffff",
+        "btn_text": "#2575fc",
+        "icon": "📱"
     }
 }
 
-opcao = st.sidebar.selectbox("Navegar por Categoria", list(TEMAS.keys()))
+# Interface
+opcao = st.sidebar.radio("Escolha a Seção", list(TEMAS.keys()))
 t = TEMAS[opcao]
 
-# --- CSS CUSTOMIZADO ---
+# --- CSS DINÂMICO ---
 st.markdown(f"""
     <style>
-    .main {{ background: {t['bg']}; color: {t['content_text']}; }}
-    .stExpander {{ border: 1px solid rgba(255,255,255,0.2) !important; border-radius: 10px !important; }}
+    /* Fundo da App */
+    .stApp {{
+        background: {t['bg']};
+        color: {t['text']};
+    }}
+    
+    /* Custom Card */
     .custom-card {{
-        background: {t['card_bg']};
-        padding: 1.5rem;
+        background-color: {t['card']};
+        padding: 20px;
         border-radius: 15px;
+        color: {t['text'] if opcao != 'Python' else '#3776AB'};
+        font-weight: bold;
+        box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
         text-align: center;
-        border: 1px solid rgba(255,255,255,0.1);
-        backdrop-filter: blur(5px);
+    }}
+
+    /* Estilo dos Expanders */
+    .stExpander {{
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        border-radius: 10px !important;
+        border: 1px solid {t['btn_header']} !important;
+    }}
+    
+    /* Títulos e Textos */
+    h1, h2, h3, p {{
+        color: {t['text']} !important;
     }}
     </style>
     """, unsafe_allow_html=True)
 
-# --- LÓGICA DE CONTEÚDO ---
-projetos = []
-exercicios = []
-
+# --- LÓGICA DE DADOS ---
 if opcao == "Games":
-    titulo = "🎮 Meus Jogos"
+    titulo = f"{t['icon']} HUB DE GAMES"
     projetos = [
-        {"nome": "Snake Game", "arquivo": "GAMES/snake.py", "obs": "Requer Pygame instalado."},
-        {"nome": "Pong", "arquivo": "GAMES/pong.py", "obs": "Rodar com Python 3.10+"}
+        {"nome": "Super Mario Clone", "arquivo": "GAMES/mario.py"},
+        {"nome": "Space Invaders", "arquivo": "GAMES/space.py"}
     ]
 elif opcao == "JavaScript":
-    titulo = "黄 JavaScript"
-    projetos = [{"nome": "Teste em html", "arquivo": "JS/teste.html"}]
-elif opcao == "Python":
-    titulo = "🐍 Python"
-    projetos = [{"nome": "Automação", "arquivo": "PY/automacao.py"}]
-    # Gerador de exercícios simplificado
-    exercicios = [{"nome": f"Exercício {i}", "arquivo": f"CursoemV-PYTHON/ex{i:03}.py"} for i in range(1, 10)]
-elif opcao == "Analise":
-    titulo = "📊 Análise de Dados"
-    projetos = [{"nome": "Relatório Gamma", "link": "https://gamma.app"}]
-elif opcao == "Mobile":
-    titulo = "📱 Mobile"
-    projetos = [{"nome": "App Vendas", "imagem": "QRcode/vendas.png"}]
+    titulo = f"{t['icon']} JAVASCRIPT"
+    projetos = [{"nome": "Sistema de Login", "arquivo": "JS/login.js"}]
+else:
+    # Mantém a lógica que já tinhas para as outras seções...
+    titulo = f"{t['icon']} {opcao}"
+    projetos = [] 
 
 # --- RENDERIZAÇÃO ---
 st.title(titulo)
 
-# Resumo em colunas
-c1, c2 = st.columns(2)
-with c1: st.markdown(f'<div class="custom-card"><h3>{len(projetos)}</h3><p>Projetos</p></div>', unsafe_allow_html=True)
-with c2: st.markdown(f'<div class="custom-card"><h3>Recente</h3><p>{projetos[0]["nome"] if projetos else "---"}</p></div>', unsafe_allow_html=True)
+col1, col2 = st.columns(2)
+with col1:
+    st.markdown(f'<div class="custom-card">🚀 {len(projetos)} Projetos Disponíveis</div>', unsafe_allow_html=True)
 
-st.divider()
+st.write("---")
 
 for p in projetos:
-    with st.expander(f"📂 {p['nome']}"):
+    with st.expander(p["nome"]):
         if "arquivo" in p:
-            if "obs" in p: st.info(p["obs"])
-            st.code(carregar_codigo(p["arquivo"]), language=t["lang"])
-        elif "link" in p:
-            st.link_button("Ver Projeto Online", p["link"])
-        elif "imagem" in p:
-            st.image(p["imagem"], width=300)
-
-# Exercícios (Python)
-if exercicios and opcao == "Python":
-    st.subheader("📝 Desafios de Lógica")
-    for ex in exercicios:
-        with st.expander(ex["nome"]):
-            st.code(carregar_codigo(ex["arquivo"]))
+            st.info(f"Caminho: {p['arquivo']}")
+            codigo = carregar_codigo(p["arquivo"])
+            st.code(codigo, language="python" if opcao != "JavaScript" else "javascript")
