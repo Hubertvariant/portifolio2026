@@ -1,7 +1,6 @@
 import pygame
 import math
 import random
-import asyncio  # 1. ESSENCIAL PARA WEB
 from sys import exit
 
 # --- CONFIGURAÇÕES GLOBAIS ---
@@ -18,9 +17,15 @@ ORANGE = (255, 165, 0)
 POWER_COLOR = (248, 187, 208)
 
 # Estados do Sistema
-START, PLAYING, GAMEOVER, WIN = 0, 1, 2, 3
+START = 0
+PLAYING = 1
+GAMEOVER = 2
+WIN = 3 # Novo estado
+
 # Estados da IA
-SCATTER, CHASE, FRIGHTENED = 0, 1, 2
+SCATTER = 0
+CHASE = 1
+FRIGHTENED = 2
 
 MAZE_DATA = [
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
@@ -32,11 +37,11 @@ MAZE_DATA = [
     [1,1,1,1,0,1,1,1,9,1,9,1,1,1,0,1,1,1,1],
     [3,3,3,1,0,1,9,9,9,9,9,9,9,1,0,1,3,3,3],
     [1,1,1,1,0,1,9,1,1,9,1,1,9,1,0,1,1,1,1],
-    [9,9,9,9,0,9,9,1,9,9,9,1,9,9,0,9,9,9,9],
+    [1,9,9,9,0,9,9,1,9,9,9,1,9,9,0,9,9,9,1],
     [1,1,1,1,0,1,9,1,1,1,1,1,9,1,0,1,1,1,1],
     [3,3,3,1,0,1,9,9,9,9,9,9,9,1,0,1,3,3,3],
     [1,1,1,1,0,1,9,1,1,1,1,1,9,1,0,1,1,1,1],
-    [1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,1],
     [1,2,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,2,1],
     [1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
@@ -86,6 +91,7 @@ class Player(Entity):
         self.x += self.dir[0] * self.vel
         self.y += self.dir[1] * self.vel
         
+        # Teleporte Túnel
         if self.x < -TILE_SIZE//2: self.x = (len(maze[0])-1) * TILE_SIZE
         elif self.x >= len(maze[0]) * TILE_SIZE: self.x = 0
 
@@ -108,46 +114,59 @@ class Ghost(Entity):
         speed = 1 if self.mode == FRIGHTENED else self.vel
         self.x += self.dir[0] * speed
         self.y += self.dir[1] * speed
+        
+        # Túnel para fantasmas também
+        if self.x < -TILE_SIZE//2: self.x = (len(maze[0])-1) * TILE_SIZE
+        elif self.x >= len(maze[0]) * TILE_SIZE: self.x = 0
 
     def decide_direction(self, maze, player, blinky_pos):
         tx, ty = self.get_tile()
         directions = [(0, -1), (-1, 0), (0, 1), (1, 0)]
         opposite = (-self.dir[0], -self.dir[1])
         
+        # Lógica de Alvos
         if self.mode == FRIGHTENED:
             self.target = (random.randint(0, 18), random.randint(0, 18))
         elif self.mode == SCATTER:
             self.target = self.scatter_target
-        else:
+        else: # CHASE
             px, py = player.get_tile()
             if self.color == RED: self.target = (px, py)
             elif self.color == PINK: self.target = (px + player.dir[0]*4, py + player.dir[1]*4)
             elif self.color == CYAN:
                 vx, vy = (px + player.dir[0]*2) - blinky_pos[0], (py + player.dir[1]*2) - blinky_pos[1]
                 self.target = (blinky_pos[0] + vx*2, blinky_pos[1] + vy*2)
-            else:
+            else: # ORANGE
                 dist = self.get_distance((tx, ty), (px, py))
                 self.target = (px, py) if dist > 8 else self.scatter_target
+
+        best_dir = self.dir
+        min_dist = float('inf')
 
         valid_moves = []
         for d in directions:
             if d == opposite: continue
             nx, ny = tx + d[0], ty + d[1]
-            if 0 <= ny < len(maze) and 0 <= nx < len(maze[0]) and maze[ny][nx] != 1:
-                d_dist = self.get_distance((nx, ny), self.target)
-                valid_moves.append((d_dist, d))
+            
+            # CORREÇÃO BUG: Verifica se está dentro dos limites e se NÃO é parede (1)
+            if 0 <= ny < len(maze) and 0 <= nx < len(maze[0]):
+                if maze[ny][nx] != 1:
+                    d_dist = self.get_distance((nx, ny), self.target)
+                    valid_moves.append((d_dist, d))
 
         if valid_moves:
+            # Escolhe a direção com a menor distância para o alvo
             valid_moves.sort() 
             self.dir = valid_moves[0][1]
         else:
+            # Se não houver saída (beco), volta para trás
             self.dir = opposite
 
 class GameController:
     def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode((len(MAZE_DATA[0])*TILE_SIZE, len(MAZE_DATA)*TILE_SIZE + 60))
-        pygame.display.set_caption("Pac-Man Portfólio")
+        pygame.display.set_caption("Pac-Man Parceiro")
         self.clock = pygame.time.Clock()
         self.font = pygame.font.SysFont("Impact", 24)
         self.game_state = START
@@ -162,7 +181,9 @@ class GameController:
             Ghost(8, 8, CYAN, (18, 18)),
             Ghost(10, 8, ORANGE, (0, 18))
         ]
-        self.mode, self.timer, self.frightened_timer = SCATTER, 0, 0
+        self.mode = SCATTER
+        self.timer = 0
+        self.frightened_timer = 0
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -179,8 +200,16 @@ class GameController:
                     if event.key == pygame.K_LEFT: self.player.next_dir = (-1, 0)
                     if event.key == pygame.K_RIGHT: self.player.next_dir = (1, 0)
 
+    def check_win(self):
+        # Se não houver mais pellets (0) nem power pellets (2), o jogador venceu
+        for row in self.maze:
+            if 0 in row or 2 in row:
+                return False
+        return True
+
     def update(self):
         if self.game_state != PLAYING: return
+
         self.timer += 1
         if self.frightened_timer > 0:
             self.frightened_timer -= 1
@@ -190,14 +219,18 @@ class GameController:
             self.mode = SCATTER if cycle_time < 7 * FPS else CHASE
 
         self.player.update(self.maze)
+        
         tx, ty = self.player.get_tile()
-        if self.maze[ty][tx] in [0, 2]:
-            if self.maze[ty][tx] == 2: self.frightened_timer = 7 * FPS
-            self.player.score += 10 if self.maze[ty][tx] == 0 else 50
+        if self.maze[ty][tx] == 0:
             self.maze[ty][tx] = 9
+            self.player.score += 10
+        elif self.maze[ty][tx] == 2:
+            self.maze[ty][tx] = 9
+            self.player.score += 50
+            self.frightened_timer = 7 * FPS
 
-        # Condição de Vitória
-        if not any(0 in row or 2 in row for row in self.maze):
+        # Verifica Vitória
+        if self.check_win():
             self.game_state = WIN
 
         blinky_pos = self.ghosts[0].get_tile()
@@ -209,50 +242,75 @@ class GameController:
                     g.reset_position()
                 else:
                     self.player.lives -= 1
-                    if self.player.lives <= 0: self.game_state = GAMEOVER
+                    if self.player.lives <= 0:
+                        self.game_state = GAMEOVER
                     else:
                         self.player.reset_position()
                         for ghost in self.ghosts: ghost.reset_position()
 
+    def draw_text(self, text, y_offset, color=WHITE, size=30):
+        font = pygame.font.SysFont("Impact", size)
+        img = font.render(text, True, color)
+        rect = img.get_rect(center=(self.screen.get_width()//2, self.screen.get_height()//2 + y_offset))
+        self.screen.blit(img, rect)
+
     def draw(self):
         self.screen.fill(BLACK)
+        
         if self.game_state == START:
-            self._draw_msg("PAC-MAN WEB", -30, YELLOW, 50)
-            self._draw_msg("CLIQUE PARA JOGAR", 30, WHITE, 20)
+            self.draw_text("PAC-MAN PARCEIRO", -50, YELLOW, 50)
+            self.draw_text("PRESSIONE QUALQUER TECLA PARA JOGAR", 20, WHITE, 20)
+        
         elif self.game_state == WIN:
-            self._draw_msg("VITÓRIA!", -20, CYAN, 50)
+            self.draw_text("PARABÉNS! VOCÊ VENCEU!", -30, CYAN, 45)
+            self.draw_text(f"SCORE FINAL: {self.player.score}", 30, WHITE, 25)
+            self.draw_text("PRESSIONE PARA RECOMECAR", 80, YELLOW, 18)
+
         elif self.game_state == GAMEOVER:
-            self._draw_msg("GAME OVER", -20, RED, 50)
+            self.draw_text("GAME OVER", -20, RED, 60)
+            self.draw_text(f"SCORE: {self.player.score}", 40, WHITE, 25)
+            self.draw_text("PRESSIONE PARA TENTAR NOVAMENTE", 80, YELLOW, 18)
+
         elif self.game_state == PLAYING:
             for y, row in enumerate(self.maze):
                 for x, cell in enumerate(row):
-                    if cell == 1: pygame.draw.rect(self.screen, BLUE, (x*24, y*24, 24, 24), 2, 4)
-                    if cell == 0: pygame.draw.circle(self.screen, WHITE, (x*24+12, y*24+12), 2)
-                    if cell == 2: pygame.draw.circle(self.screen, POWER_COLOR, (x*24+12, y*24+12), 6)
-            # Pac-Man e Fantasmas (simplificado para o exemplo)
-            pygame.draw.circle(self.screen, YELLOW, (int(self.player.x+12), int(self.player.y+12)), 11)
+                    rect = (x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE)
+                    if cell == 1: pygame.draw.rect(self.screen, BLUE, rect, 2, border_radius=4)
+                    if cell == 0: pygame.draw.circle(self.screen, WHITE, (x*TILE_SIZE+12, y*TILE_SIZE+12), 2)
+                    if cell == 2: pygame.draw.circle(self.screen, POWER_COLOR, (x*TILE_SIZE+12, y*TILE_SIZE+12), 6)
+
+            # Player
+            p_x, p_y = int(self.player.x+12), int(self.player.y+12)
+            pygame.draw.circle(self.screen, YELLOW, (p_x, p_y), 11)
+            angle = self.player.mouth_open
+            points = [ (p_x, p_y) ]
+            rot = 0
+            if self.player.dir == (-1, 0): rot = 180
+            elif self.player.dir == (0, -1): rot = 270
+            elif self.player.dir == (0, 1): rot = 90
+            for a in range(int(-angle), int(angle)):
+                rad = math.radians(a + rot)
+                points.append((p_x + 12 * math.cos(rad), p_y + 12 * math.sin(rad)))
+            if len(points) > 2: pygame.draw.polygon(self.screen, BLACK, points)
+
+            # Fantasmas
             for g in self.ghosts:
-                c = (50, 50, 255) if self.mode == FRIGHTENED else g.color
-                pygame.draw.circle(self.screen, c, (int(g.x+12), int(g.y+12)), 11)
-            
-            txt = self.font.render(f"SCORE: {self.player.score}  LIVES: {self.player.lives}", True, WHITE)
-            self.screen.blit(txt, (10, len(MAZE_DATA)*24 + 10))
+                color = (50, 50, 255) if self.mode == FRIGHTENED else g.color
+                pygame.draw.circle(self.screen, color, (int(g.x+12), int(g.y+12)), 11)
+                pygame.draw.rect(self.screen, color, (int(g.x+1), int(g.y+12), 22, 10))
+
+            info = f"SCORE: {self.player.score}   LIVES: {self.player.lives}"
+            txt = self.font.render(info, True, WHITE)
+            self.screen.blit(txt, (10, len(MAZE_DATA)*TILE_SIZE + 10))
+
         pygame.display.flip()
 
-    def _draw_msg(self, text, y, color, size):
-        f = pygame.font.SysFont("Impact", size)
-        img = f.render(text, True, color)
-        self.screen.blit(img, img.get_rect(center=(self.screen.get_width()//2, self.screen.get_height()//2 + y)))
-
-    # 2. FUNÇÃO ASYNC PARA O LOOP
-    async def run(self):
+    def run(self):
         while True:
             self.handle_events()
             self.update()
             self.draw()
             self.clock.tick(FPS)
-            await asyncio.sleep(0) # 3. PERMITE QUE O BROWSER RESPIRE
 
 if __name__ == "__main__":
-    game = GameController()
-    asyncio.run(game.run()) # 4. CHAMA O LOOP ASYNC
+    GameController().run()
