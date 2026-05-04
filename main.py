@@ -152,7 +152,7 @@ else:
                 conteudo = carregar_codigo(item['caminho']).strip()
                 if conteudo.startswith("http"):
                     st.info(f"O projeto '{item['nome']}' está disponível externamente.")
-                    st.link_button(f"🚀 ACEDER PROJETO", conteudo, use_container_width=True)
+                    st.link_button(f"🚀 ACESSAR PROJETO", conteudo, use_container_width=True)
                 else:
                     st.markdown(f"> {conteudo}")
 
