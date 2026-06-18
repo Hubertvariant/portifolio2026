@@ -1,0 +1,5 @@
+print('Dobro, Triplo e Raiz quadrada')
+n = int(input('Digite um numero: '))
+print(f'Dobro {n * 2}')
+print(f'Triplo {n * 3}')
+print(f'Raiz quadrada {n ** (1/2)}')

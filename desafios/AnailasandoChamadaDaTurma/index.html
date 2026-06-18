@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisando Chamada da Turma</title>
+</head>
+<body>
+    <main>
+        <header>
+            <h1>Analisando Chamada da Turma</h1>
+        </header>
+        <section>
+            <input type="number" id="Nmatricula">
+            <input type="text" id="name">
+            <input type="number" id="idade">
+            <label for="sexo" cheked>Masculino</label>
+            <input type="checkbox" id="sexoM">
+            <label for="sexo">Feminino</label>
+            <input type="checkbox" id="sexoF">
+            <button onclick="adicionar()">Adicionar</button>
+            <button onclick="finalizar()">Finalizar</button>
+        </section>
+    </main>
+</body>
+<script>
+    lista = []
+    let matricula = document.getElementById('Nmatricula')
+    let name = document.getElementById('name')
+    let idade = document.getElementById('idade')
+    let sexoM = document.getElementById('sexoM')
+    let sexoF = document.getElementById('sexoF')
+    function adicionar(){
+        if(matricula.value == '' || name.value == '' || idade.value == '' || sexoM.checked == false && sexoF.checked == false){
+            alert('Preencha todos os campos!')
+        }else{
+            if(sexoM.checked == false && sexoF.checked == false){
+                alert('Os campos sexo devem ser preenchidos corretamente!')
+            }else{
+                if(sexoM.checked == false){
+                    sexo = 'F'
+                }else{
+                    sexo = 'M'
+                }
+                let aluno = [matricula.value, name.value, idade.value, sexo]
+                lista.push(aluno)
+                matricula.value = ''
+                name.value = ''
+                idade.value = ''
+                sexoM.checked = false
+                sexoF.checked = false
+                console.log(lista)
+            }
+        }
+    }
+</script>
+</html>

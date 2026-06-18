@@ -1,0 +1,14 @@
+from time import sleep
+
+print('\033[33;1m=' * 10)
+print(f'{"ex050":^10}')
+print('=' * 10, '\033[m')
+sleep(1)
+
+soma = 0
+print('\033[1mDIGITE NÚMEROS!')
+for c in range(0, 6):
+    num = int(input(f'Digite o {c + 1}°o número: '))
+    if num % 2 == 0:
+        soma += num
+print(f'A soma de todos os números pares digitados é igual a {soma}\033[m')
